@@ -6,10 +6,10 @@ from PIL import Image
 sizex=500
 sizey=500
 img=Image.new( mode = "RGB", size = (sizex, sizey), color=(255,255,255))
-path="/home/synch/Documents/Coding/python"
+path=""
 
-points=[ [[0,0],[255,0,0]],[[sizex-1,sizey-1],[0,255,0]],[[200,200],[0,0,255]]]
-numberOfPoints=3
+points=[ [[0,0],[255,0,0]],[[sizex-1,sizey-1],[0,255,0]] ]
+numberOfPoints=2
 for i in range(sizex):
     for j in range(sizey):
         r=0
@@ -25,14 +25,12 @@ for i in range(sizex):
             disSum+=dis[z]
 
         for z in range(numberOfPoints):
-            r+=(dis[z]/disSum)*points[z][1][0]
-            g+=(dis[z]/disSum)*points[z][1][1]
-            b+=(dis[z]/disSum)*points[z][1][2]
+            r+=((disSum-dis[z])/disSum)*points[z][1][0]
+            g+=((disSum-dis[z])/disSum)*points[z][1][1]
+            b+=((disSum-dis[z])/disSum)*points[z][1][2]
         r=ceil(r)
         g=ceil(g)
         b=ceil(b)
         img.putpixel ((i,j), (r, g, b))
 
 img.save(path+'gradient.png', format="PNG")
-
-
